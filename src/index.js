@@ -6,6 +6,4 @@ import { articles } from "./fixtures";
 
 const article = articles[0];
 
-
-
 render(<Article article = {article} />, document.getElementById("container"));
