@@ -13,6 +13,14 @@ class Article extends Component {
     }).isRequired
   };
 
+  componentWillReceiveProps(nextProps) {
+    console.log("---", "updating componentWillReceiveProps", this.props.isOpen, nextProps.isOpen);
+  }
+
+  componentWillMount() {
+    console.log("---", "mounting componentWillMount");
+  }
+
   render() {
     const { article, isOpen, toggleOpen } = this.props;
 
@@ -25,6 +33,10 @@ class Article extends Component {
         {this.getArticleText()}
       </div>
     );
+  }
+
+  componentDidMount() {
+    console.log("---", "mounted componentDidMount");
   }
 
   getArticleText() {
