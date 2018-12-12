@@ -33,6 +33,7 @@
     "webpack-dev-server": "^2.0.0"
   },
   "dependencies": {
+    "eslint": "^5.10.0",
     "history": "^4.6.3",
     "immutable": "^3.8.1",
     "prop-types": "^15.5.10",

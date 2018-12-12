@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 
-import CommentList from "./CommentList";
+import Comment from "./Comment";
 
-export default class Article extends Component {
+export default class CommentList extends Component {
   constructor(props) {
     super(props);
 
@@ -12,29 +12,29 @@ export default class Article extends Component {
   }
 
   render() {
-    const { article } = this.props;
     const { isOpen } = this.state;
 
     return (
       <div>
-        <h3>{article.title}</h3>
         <button onClick={this.toggleOpen}>
-          {isOpen ? "close article" : "open article"}
+          {isOpen ? "close comments" : "open comments"}
         </button>
-        {this.getArticleText()}
+        {this.getComments()}
       </div>
     );
   }
 
-  getArticleText() {
+  getComments() {
     if (!this.state.isOpen) return null;
-    const { article } = this.props;
-    return (
-      <section>
-        {article.text}
-        <CommentList comments={article.comments} />
-      </section>
-    );
+
+    const { comments } = this.props;
+    const commentElements = comments.map(comment => (
+      <li key={comment.id}>
+        <Comment comment={comment} />
+      </li>
+    ));
+
+    return <section>{commentElements}</section>;
   }
 
   toggleOpen = () => {
