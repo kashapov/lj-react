@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import {findDOMNode} from "react-dom";
 
 import PropTypes from "prop-types";
 import CommentList from "./CommentList";
@@ -14,7 +15,12 @@ class Article extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    console.log("---", "updating componentWillReceiveProps", this.props.isOpen, nextProps.isOpen);
+    console.log(
+      "---",
+      "updating componentWillReceiveProps",
+      this.props.isOpen,
+      nextProps.isOpen
+    );
   }
 
   componentWillMount() {
@@ -25,7 +31,7 @@ class Article extends Component {
     const { article, isOpen, toggleOpen } = this.props;
 
     return (
-      <div>
+      <div ref={this.setContainerRef}>
         <h3>{article.title}</h3>
         <button onClick={toggleOpen}>
           {isOpen ? "close article" : "open article"}
@@ -34,6 +40,16 @@ class Article extends Component {
       </div>
     );
   }
+
+  setContainerRef = ref => {
+    //this.container = ref;
+    console.log(ref);
+  };
+
+  setCommentsRef = ref => {
+    //this.container = ref;
+    console.log(findDOMNode(ref));
+  };
 
   componentDidMount() {
     console.log("---", "mounted componentDidMount");
@@ -46,7 +62,7 @@ class Article extends Component {
     return (
       <section>
         {article.text}
-        <CommentList comments={article.comments} />
+        <CommentList comments={article.comments} ref={this.setCommentsRef} />
       </section>
     );
   }
