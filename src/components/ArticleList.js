@@ -5,6 +5,12 @@ import accordion from "../decorators/accordion";
 import PropTypes from "prop-types";
 
 class ArticleList extends Component {
+  static propTypes = {
+    articles: PropTypes.array.isRequired,
+    // from accordion
+    openItemId: PropTypes.string,
+    toggleOpenItem: PropTypes.func.isRequired
+  };
 
   render() {
     const { articles, openItemId, toggleOpenItem } = this.props;
