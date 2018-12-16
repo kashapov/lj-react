@@ -24,7 +24,7 @@ class App extends Component {
           options={options}
           value={this.state.selection}
           onChange={this.changeSelection}
-          multy
+          multi
         />
         <ArticleList articles={this.props.articles} />
         <ArticlesChart articles={this.props.articles} />
