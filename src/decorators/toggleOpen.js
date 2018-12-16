@@ -5,6 +5,18 @@ export default OriginalComponent =>
     state = {
       isOpen: false
     };
+/*
+    componentDidMount() {
+      console.log("mounting");
+    }
+
+    componentDidUpdate() {
+      console.log("updating");
+    }
+
+    componentWillUnmount() {
+      console.log("---", "unmounting");
+    }*/
 
     toggleOpen = ev => {
       ev && ev.preventDefault && ev.preventDefault();

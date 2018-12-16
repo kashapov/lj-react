@@ -1,10 +1,10 @@
-import React, { Component } from "react";
+import React, { Component, PureComponent } from "react";
 import { findDOMNode } from "react-dom";
 
 import PropTypes from "prop-types";
 import CommentList from "./CommentList";
 
-class Article extends Component {
+class Article extends PureComponent {
   static propTypes = {
     article: PropTypes.shape({
       id: PropTypes.string.isRequired,
@@ -15,22 +15,30 @@ class Article extends Component {
     toggleOpen: PropTypes.func
   };
 
+  state = {
+    updateIndex: 0
+  };
+  /*
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextProps.isOpen !== this.props.isOpen
+  }*/
+
   componentWillReceiveProps(nextProps) {
-    console.log(
+    /*console.log(
       "---",
       "updating componentWillReceiveProps",
       this.props.isOpen,
       nextProps.isOpen
-    );
+    );*/
   }
 
   componentWillMount() {
-    console.log("---", "mounting componentWillMount");
+    //console.log("---", "mounting componentWillMount");
   }
 
   render() {
     const { article, isOpen, toggleOpen } = this.props;
-
+    //console.log("---", "update article");
     return (
       <div ref={this.setContainerRef}>
         <h3>{article.title}</h3>
@@ -44,15 +52,15 @@ class Article extends Component {
 
   setContainerRef = ref => {
     //this.container = ref;
-    console.log(ref);
+    //console.log(ref);
   };
 
   setCommentsRef = ref => {
-    console.log(findDOMNode(ref));
+    //console.log(findDOMNode(ref));
   };
 
   componentDidMount() {
-    console.log("---", "mounted componentDidMount");
+    //console.log("---", "mounted componentDidMount");
   }
 
   getArticleText() {
@@ -62,7 +70,18 @@ class Article extends Component {
     return (
       <section>
         {article.text}
-        <CommentList comments={article.comments} ref={this.setCommentsRef} />
+        <button
+          onClick={() =>
+            this.setState({ updateIndex: this.state.updateIndex + 1 })
+          }
+        >
+          update
+        </button>
+        <CommentList
+          comments={article.comments}
+          ref={this.setCommentsRef}
+          key={this.state.updateIndex}
+        />
       </section>
     );
   }
