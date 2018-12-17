@@ -26,15 +26,13 @@ CommentList.propTypes = {
 function getComments({ comments, isOpen }) {
   if (!isOpen) return null;
 
-  if (!comments.length) {
+  if (!comments.length)
     return (
       <div>
         <small>No comments yet</small>
         <CommentForm />
       </div>
     );
-  }
-    
 
   const commentElements = comments.map(comment => (
     <li key={comment.id}>
@@ -45,7 +43,7 @@ function getComments({ comments, isOpen }) {
   return (
     <div>
       <ul>{commentElements}</ul>
-      <CommentForm />
+      <Comment comment={comment} />
     </div>
   );
 }
