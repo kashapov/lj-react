@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 
 import PropTypes from "prop-types";
-
 import SelectFilter from "./Select";
+import DateRange from "./DateRange";
 
 class Filters extends Component {
   static propTypes = {
@@ -13,6 +13,7 @@ class Filters extends Component {
     return (
       <div>
         <SelectFilter articles={this.props.articles} />
+        <DateRange />
       </div>
     );
   }
