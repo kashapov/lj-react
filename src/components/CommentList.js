@@ -1,6 +1,7 @@
 import React from "react";
 
 import Comment from "./Comment";
+import CommentForm from "./CommentForm";
 import toggleOpen from "../decorators/toggleOpen";
 import PropTypes from "prop-types";
 
@@ -25,7 +26,13 @@ CommentList.propTypes = {
 function getComments({ comments, isOpen }) {
   if (!isOpen) return null;
 
-  if (!comments.length) return <small>No comments yet</small>;
+  if (!comments.length)
+    return (
+      <div>
+        <small>No comments yet</small>
+        <CommentForm />
+      </div>
+    );
 
   const commentElements = comments.map(comment => (
     <li key={comment.id}>
@@ -33,7 +40,12 @@ function getComments({ comments, isOpen }) {
     </li>
   ));
 
-  return <section>{commentElements}</section>;
+  return (
+    <div>
+      <ul>{commentElements}</ul>
+      <Comment comment={comment} />
+    </div>
+  );
 }
 
 export default toggleOpen(CommentList);
