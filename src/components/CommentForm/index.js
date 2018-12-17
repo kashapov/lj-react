@@ -10,7 +10,7 @@ class CommentForm extends PureComponent {
 
   render() {
     return (
-      <form onSubit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit}>
         user:{" "}
         <input
           value={this.state.user}
@@ -19,7 +19,7 @@ class CommentForm extends PureComponent {
         />
         comment:{" "}
         <input
-          value={this.state.user}
+          value={this.state.text}
           onChange={this.handleChange("text")}
           className={this.getClassName("text")}
         />
@@ -29,7 +29,7 @@ class CommentForm extends PureComponent {
   }
 
   getClassName = type => {
-    this.state[type].length && this.state[type].length < limits[type].min
+    return this.state[type].length && this.state[type].length < limits[type].min
       ? "form-input__error"
       : "";
   };
