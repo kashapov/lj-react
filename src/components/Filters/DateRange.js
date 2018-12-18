@@ -11,7 +11,7 @@ class DateRange extends Component {
 
   render() {
     const { from, to } = this.state;
-    const selectedRange = from && to && `${to.toDateString()}`;
+    const selectedRange = from && to && `${from.toDateString()} - ${to.toDateString()}`;
 
     return (
       <div className="date-range">
@@ -26,7 +26,7 @@ class DateRange extends Component {
   }
 
   handleDayClick = day => {
-    this.setState(DateUtils.addDayToRanfe(day, this.state));
+    this.setState(DateUtils.addDayToRange(day, this.state));
   };
 }
 
