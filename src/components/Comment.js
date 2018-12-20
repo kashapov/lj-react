@@ -1,5 +1,6 @@
 import React from "react";
 
+import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 function Comment({ comment }) {
@@ -12,10 +13,16 @@ function Comment({ comment }) {
 }
 
 Comment.propTypes = {
+  id: PropTypes.string.isRequired,
+  // from connect
   comment: PropTypes.shape({
     text: PropTypes.string.isRequired,
     user: PropTypes.string.isRequired
   }).isRequired
 };
 
-export default Comment;
+export default connect((state, ownProps) => {
+  return {
+    comment: state.commentsReducer.find(comment => comment.id === ownProps.id)
+  };
+})(Comment);

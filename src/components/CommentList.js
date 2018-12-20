@@ -36,9 +36,9 @@ function getComments({ comments, isOpen }) {
   }
     
 
-  const commentElements = comments.map(comment => (
-    <li key={comment.id}>
-      <Comment comment={comment} />
+  const commentElements = comments.map(id => (
+    <li key={id}>
+      <Comment id={id} />
     </li>
   ));
 
