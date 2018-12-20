@@ -2,7 +2,7 @@ import React, { Component, PureComponent } from "react";
 import { findDOMNode } from "react-dom";
 import { connect } from "react-redux";
 
-import { deleteArticle } from "../AC";
+import { deleteArticle } from "../../AC";
 import PropTypes from "prop-types";
 import CommentList from "../CommentList";
 import { CSSTransitionGroup } from "react-transition-group";

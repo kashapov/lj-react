@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { increment } from "./AC";
+import { increment } from "../AC";
 
 class Counter extends Component {
   static propTypes = {

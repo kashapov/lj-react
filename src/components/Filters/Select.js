@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
-import { changeSelection } from "../AC";
+import { changeSelection } from "../../AC";
 import PropTypes from "prop-types";
 import Select from "react-select";
 
