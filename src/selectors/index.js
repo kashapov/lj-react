@@ -32,6 +32,7 @@ export const commentSelectorFactory = () =>
     commentsGetter,
     idGetter,
     (comments, id) => {
-      return comments.find(comment => comment.id === id);
+      console.log("getting comment", id);
+      return comments[id];
     }
   );
