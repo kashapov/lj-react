@@ -8,5 +8,5 @@ export default combineReducers({
   count: counterReducer,
   articles: articlesReducer,
   filters: filtersReducer,
-  commentsReducer: commentsReducer
+  comments: commentsReducer
 });
