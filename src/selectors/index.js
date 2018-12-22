@@ -32,7 +32,7 @@ export const commentSelectorFactory = () =>
     commentsGetter,
     idGetter,
     (comments, id) => {
-      console.log("getting comment", id);
+      //console.log("getting comment", id);
       return comments[id];
     }
   );
