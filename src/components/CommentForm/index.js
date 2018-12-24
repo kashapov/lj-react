@@ -1,8 +1,15 @@
-import React, { Component, PureComponent } from "react";
-
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { addComment } from "../../AC";
 import "./style.css";
 
-class CommentForm extends PureComponent {
+class CommentForm extends Component {
+  static propTypes = {
+    articleId: PropTypes.string.isRequired,
+    addComment: PropTypes.func.isRequired
+  };
+
   state = {
     user: "",
     text: ""
@@ -28,23 +35,22 @@ class CommentForm extends PureComponent {
     );
   }
 
-  getClassName = type => {
-    return (this.state[type].length && this.state[type].length < limits[type].min
-      ? "form-input__error"
-      : "");
-  };
-
   handleSubmit = ev => {
     ev.preventDefault();
+    this.props.addComment(this.state);
     this.setState({
       user: "",
       text: ""
     });
   };
 
+  getClassName = type =>
+    this.state[type].length && this.state[type].length < limits[type].min
+      ? "form-input__error"
+      : "";
+
   handleChange = type => ev => {
     const { value } = ev.target;
-
     if (value.length > limits[type].max) return;
     this.setState({
       [type]: value
@@ -63,4 +69,9 @@ const limits = {
   }
 };
 
-export default CommentForm;
+export default connect(
+  null,
+  (dispatch, ownProps) => ({
+    addComment: comment => dispatch(addComment(comment, ownProps.articleId))
+  })
+)(CommentForm);

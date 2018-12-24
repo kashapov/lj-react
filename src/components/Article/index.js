@@ -1,11 +1,10 @@
 import React, { Component, PureComponent } from "react";
 import { findDOMNode } from "react-dom";
 import { connect } from "react-redux";
-
-import { deleteArticle } from "../../AC";
 import PropTypes from "prop-types";
 import CommentList from "../CommentList";
 import { CSSTransitionGroup } from "react-transition-group";
+import { deleteArticle } from "../../AC";
 import "./style.css";
 
 class Article extends PureComponent {
@@ -22,40 +21,29 @@ class Article extends PureComponent {
   state = {
     updateIndex: 0
   };
+
   /*
-  shouldComponentUpdate(nextProps, nextState) {
-    return nextProps.isOpen !== this.props.isOpen
-  }*/
-
-  componentWillReceiveProps(nextProps) {
-    /*console.log(
-      "---",
-      "updating componentWillReceiveProps",
-      this.props.isOpen,
-      nextProps.isOpen
-    );*/
-  }
-
-  componentWillMount() {
-    //console.log("---", "mounting componentWillMount");
-  }
+    shouldComponentUpdate(nextProps, nextState) {
+        return nextProps.isOpen !== this.props.isOpen
+    }
+*/
 
   render() {
     const { article, isOpen, toggleOpen } = this.props;
-    //console.log("---", "update article");
     return (
       <div ref={this.setContainerRef}>
         <h3>{article.title}</h3>
-        <button onClick={toggleOpen}>
-          {isOpen ? "close article" : "open article"}
-        </button>
-        <button onClick={this.handleDelete}>Delete</button>
+        <button onClick={toggleOpen}>{isOpen ? "close" : "open"}</button>
+        <button onClick={this.handleDelete}>delete me</button>
         <CSSTransitionGroup
           transitionName="article"
+          transitionAppear
           transitionEnterTimeout={300}
           transitionLeaveTimeout={500}
+          transitionAppearTimeout={500}
+          component="div"
         >
-          {this.getArticleText()}
+          {this.getBody()}
         </CSSTransitionGroup>
       </div>
     );
@@ -64,48 +52,39 @@ class Article extends PureComponent {
   handleDelete = () => {
     const { deleteArticle, article } = this.props;
     deleteArticle(article.id);
-    //console.log("delete article");
+    console.log("---", "deleting article");
   };
 
   setContainerRef = ref => {
-    //this.container = ref;
-    //console.log(ref);
+    this.container = ref;
+    //        console.log('---', ref)
   };
 
-  setCommentsRef = ref => {
-    //console.log(findDOMNode(ref));
-  };
-
-  componentDidMount() {
-    //console.log("---", "mounted componentDidMount");
-  }
-
-  getArticleText() {
+  getBody() {
     const { article, isOpen } = this.props;
-
-    let btn_update = (
-      <button
-        onClick={() =>
-          this.setState({ updateIndex: this.state.updateIndex + 1 })
-        }
-      >
-        update
-      </button>
-    );
-
     if (!isOpen) return null;
     return (
       <section>
         {article.text}
-        {/*btn_update*/}
+        <button
+          onClick={() =>
+            this.setState({ updateIndex: this.state.updateIndex + 1 })
+          }
+        >
+          update
+        </button>
         <CommentList
-          comments={article.comments}
+          article={article}
           ref={this.setCommentsRef}
           key={this.state.updateIndex}
         />
       </section>
     );
   }
+
+  setCommentsRef = ref => {
+    //        console.log('---', ref)
+  };
 }
 
 export default connect(

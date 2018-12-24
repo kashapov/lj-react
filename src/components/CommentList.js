@@ -1,51 +1,46 @@
-import React from "react";
-
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 import Comment from "./Comment";
 import CommentForm from "./CommentForm";
 import toggleOpen from "../decorators/toggleOpen";
-import PropTypes from "prop-types";
 
-function CommentList({ comments = [], isOpen, toggleOpen }) {
+function CommentList({ article, isOpen, toggleOpen }) {
+  const text = isOpen ? "hide comments" : "show comments";
   return (
     <div>
-      <button onClick={toggleOpen}>
-        {isOpen ? "close comments" : "open comments"}
-      </button>
-      {getComments({ comments, isOpen })}
+      <button onClick={toggleOpen}>{text}</button>
+      {getBody({ article, isOpen })}
     </div>
   );
 }
 
 CommentList.propTypes = {
   comments: PropTypes.array,
-  // from toggleOpen decorator
+  //from toggleOpen decorator
   isOpen: PropTypes.bool,
   toggleOpen: PropTypes.func
 };
 
-function getComments({ comments, isOpen }) {
+function getBody({ article: { comments = [], id }, isOpen }) {
   if (!isOpen) return null;
-
-  if (!comments.length) {
+  if (!comments.length)
     return (
       <div>
-        <small>No comments yet</small>
-        <CommentForm />
+        <p>No comments yet</p>
+        <CommentForm articleId={id} />
       </div>
     );
-  }
-    
-
-  const commentElements = comments.map(id => (
-    <li key={id}>
-      <Comment id={id} />
-    </li>
-  ));
 
   return (
     <div>
-      <ul>{commentElements}</ul>
-      <CommentForm />
+      <ul>
+        {comments.map(id => (
+          <li key={id}>
+            <Comment id={id} />
+          </li>
+        ))}
+      </ul>
+      <CommentForm articleId={id} />
     </div>
   );
 }
