@@ -4,16 +4,19 @@ import {
   DELETE_ARTICLE,
   ADD_COMMENT,
   LOAD_ALL_ARTICLES,
+  LOAD_ARTICLE,
   START,
   SUCCESS
 } from "../constants";
 import { OrderedMap, Record } from "immutable";
 
-const ArticleModel = Record({
+
+const ArticleRecord = Record({
   id: undefined,
   title: "",
   text: "",
-  comments: []
+  comments: [],
+  loading: false
 });
 
 const ReducerState = new Record({
@@ -42,9 +45,18 @@ export default (articleState = defaultState, action) => {
 
     case LOAD_ALL_ARTICLES + SUCCESS:
       return articleState
-        .set("entities", arrToMap(response, ArticleModel))
+        .set("entities", arrToMap(response, ArticleRecord))
         .set("loading", false)
         .set("loaded", true);
+
+    case LOAD_ARTICLE + START:
+      return articleState.setIn(["entities", payload.id, "loading"], true);
+
+    case LOAD_ARTICLE + SUCCESS:
+      return articleState.setIn(
+        ["entities", payload.id],
+        new ArticleRecord(payload.response)
+      );
   }
 
   return articleState;
