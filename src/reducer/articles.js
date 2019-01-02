@@ -5,17 +5,19 @@ import {
   ADD_COMMENT,
   LOAD_ALL_ARTICLES,
   LOAD_ARTICLE,
+  LOAD_ARTICLE_COMMENTS,
   START,
   SUCCESS
 } from "../constants";
 import { OrderedMap, Record } from "immutable";
-
 
 const ArticleRecord = Record({
   id: undefined,
   title: "",
   text: "",
   comments: [],
+  commentsLoading: false,
+  commentsLoaded: false,
   loading: false
 });
 
@@ -57,6 +59,17 @@ export default (articleState = defaultState, action) => {
         ["entities", payload.id],
         new ArticleRecord(payload.response)
       );
+
+    case LOAD_ARTICLE_COMMENTS + START:
+      return articleState.setIn(
+        ["entities", payload.articleId, "commentsLoading"],
+        true
+      );
+
+    case LOAD_ARTICLE_COMMENTS + SUCCESS:
+      return articleState
+        .setIn(["entities", payload.articleId, "commentsLoading"], false)
+        .setIn(["entities", payload.articleId, "commentsLoaded"], true);
   }
 
   return articleState;

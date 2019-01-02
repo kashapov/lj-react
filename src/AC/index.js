@@ -6,6 +6,7 @@ import {
   ADD_COMMENT,
   LOAD_ALL_ARTICLES,
   LOAD_ARTICLE,
+  LOAD_ARTICLE_COMMENTS,
   START,
   SUCCESS,
   FAIL
@@ -53,6 +54,14 @@ export function loadAllArticles() {
   };
 }
 
+export function loadArticleComments(articleId) {
+  return {
+    type: LOAD_ARTICLE_COMMENTS,
+    payload: {articleId},
+    callAPI: `/api/comment?article=${articleId}`
+  }
+}
+
 export function loadArticle(id) {
   return dispatch => {
     dispatch({
@@ -87,3 +96,5 @@ export function loadArticle(id) {
   };
 }
 */
+
+
