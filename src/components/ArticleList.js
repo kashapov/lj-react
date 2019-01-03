@@ -19,14 +19,14 @@ class ArticleList extends Component {
 
   componentDidMount() {
     const { loaded, loading, loadAllArticles } = this.props;
-    if(!loaded && !loading) loadAllArticles();
+    if (!loaded && !loading) loadAllArticles();
   }
 
   render() {
     console.log("update article list");
     const { articles, openItemId, toggleOpenItem, loading } = this.props;
 
-    if(loading) return <Loader/>
+    if (loading) return <Loader />;
 
     const articleElements = articles.map(article => (
       <li key={article.id}>
