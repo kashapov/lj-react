@@ -15,8 +15,8 @@ class Article extends PureComponent {
     toggleOpen: PropTypes.func,
     // from connect
     article: PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
+      id: PropTypes.string,
+      title: PropTypes.string,
       text: PropTypes.string
     })
   };
@@ -31,8 +31,10 @@ class Article extends PureComponent {
     }
 */
 
-  componentWillReceiveProps({ isOpen, loadArticle, article }) {
-    if (isOpen && !article.text && !article.loading) loadArticle(article.id);
+  componentDidMount() {
+    const { loadArticle, article, id } = this.props;
+    if (!article || (!article.text && !article.loading))
+      loadArticle(id);
   }
 
   render() {
