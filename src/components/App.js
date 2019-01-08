@@ -1,10 +1,17 @@
 import React, { Component } from "react";
 
 import Articles from "./routes/Articles";
+import NewArticle from "./routes/NewAricle";
+import NotFound from "./routes/NotFound";
 import UserForm from "./UserForm";
 import Filters from "./Filters";
 import Counter from "./Counter";
-import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  NavLink
+} from "react-router-dom";
 
 import "react-select/dist/react-select.css";
 
@@ -39,9 +46,13 @@ class App extends Component {
           </nav>
           <hr />
           <UserForm />
-          <Route path="/counter" component={Counter} />
-          <Route path="/filters" component={Filters} />
-          <Route path="/articles" component={Articles} />
+          <Switch>
+            <Route path="/counter" component={Counter} />
+            <Route path="/filters" component={Filters} />
+            <Route path="/articles/new" component={NewArticle} />
+            <Route path="/articles" component={Articles} />
+            <Route path="*" component={NotFound} />
+          </Switch>
         </div>
       </Router>
     );
