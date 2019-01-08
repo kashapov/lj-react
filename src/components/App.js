@@ -4,7 +4,7 @@ import Articles from "./routes/Articles";
 import UserForm from "./UserForm";
 import Filters from "./Filters";
 import Counter from "./Counter";
-import { HashRouter as Router, Route, NavLink } from "react-router-dom";
+import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
 
 import "react-select/dist/react-select.css";
 
