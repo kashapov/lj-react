@@ -7,6 +7,7 @@ import {
   LOAD_ALL_ARTICLES,
   LOAD_ARTICLE,
   LOAD_ARTICLE_COMMENTS,
+  LOAD_COMMENTS_FOR_PAGE,
   START,
   SUCCESS,
   FAIL
@@ -57,9 +58,9 @@ export function loadAllArticles() {
 export function loadArticleComments(articleId) {
   return {
     type: LOAD_ARTICLE_COMMENTS,
-    payload: {articleId},
+    payload: { articleId },
     callAPI: `/api/comment?article=${articleId}`
-  }
+  };
 }
 
 export function loadArticle(id) {
@@ -97,4 +98,18 @@ export function loadArticle(id) {
 }
 */
 
+export function checkAndLoadCommentsForPage(page) {
+  return (dispatch, getState) => {
+    const {
+      comments: { pagination }
+    } = getState();
+    if (pagination.getIn([page, "loading"]) || pagination.getIn([page, "ids"]))
+      return;
 
+    dispatch({
+      type: LOAD_COMMENTS_FOR_PAGE,
+      payload: { page },
+      callAPI: `/api/comment?limit=5&offset=${(page - 1) * 5}`
+    });
+  };
+}

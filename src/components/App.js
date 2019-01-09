@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import Articles from "./routes/Articles";
 import NewArticle from "./routes/NewAricle";
 import NotFound from "./routes/NotFound";
+import CommentsPage from "./routes/CommentsPage";
 import UserForm from "./UserForm";
 import Filters from "./Filters";
 import Counter from "./Counter";
@@ -43,6 +44,13 @@ class App extends Component {
             >
               Articles
             </NavLink>
+            <NavLink
+              style={{ marginRight: "10px" }}
+              activeStyle={{ color: "red" }}
+              to="/comments/1"
+            >
+              Comments
+            </NavLink>
           </nav>
           <hr />
           <UserForm />
@@ -51,6 +59,7 @@ class App extends Component {
             <Route path="/filters" component={Filters} />
             <Route path="/articles/new" component={NewArticle} />
             <Route path="/articles" component={Articles} />
+            <Route path="/comments/:page" component={CommentsPage} />
             <Route path="*" component={NotFound} />
           </Switch>
         </div>
