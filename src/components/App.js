@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import PropTypes from "prop-types";
 import Articles from "./routes/Articles";
 import NewArticle from "./routes/NewAricle";
 import NotFound from "./routes/NotFound";
@@ -14,7 +14,27 @@ import history from "../history";
 import "react-select/dist/react-select.css";
 
 class App extends Component {
+  static childContextTypes = {
+    user: PropTypes.string
+  };
+
+  getChildContext() {
+    return {
+      user: this.state.userName
+    };
+  }
+
+  state = {
+    userName: ""
+  };
+
+  handleUserChange = userName => {
+    this.setState({ userName });
+  };
+
   render() {
+    //console.log(0);
+
     return (
       <ConnectedRouter history={history}>
         <div>
@@ -50,7 +70,10 @@ class App extends Component {
             </NavLink>
           </nav>
           <hr />
-          <UserForm />
+          <UserForm
+            value={this.state.userName}
+            onChange={this.handleUserChange}
+          />
           <Switch>
             <Route path="/counter" component={Counter} />
             <Route path="/filters" component={Filters} />

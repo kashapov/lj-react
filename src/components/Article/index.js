@@ -8,7 +8,7 @@ import { deleteArticle, loadArticle } from "../../AC";
 import Loader from "../Loader";
 import "./style.css";
 
-class Article extends PureComponent {
+class Article extends Component {
   static propTypes = {
     id: PropTypes.string.isRequired,
     isOpen: PropTypes.bool,
@@ -33,13 +33,14 @@ class Article extends PureComponent {
 
   componentDidMount() {
     const { loadArticle, article, id } = this.props;
-    if (!article || (!article.text && !article.loading))
-      loadArticle(id);
+    if (!article || (!article.text && !article.loading)) loadArticle(id);
   }
 
   render() {
+    //console.log(2);
     const { article, isOpen, toggleOpen } = this.props;
     if (!article) return null;
+
     return (
       <div ref={this.setContainerRef}>
         <h3>{article.title}</h3>
@@ -100,5 +101,7 @@ class Article extends PureComponent {
 
 export default connect(
   (state, ownProps) => ({ article: state.articles.entities.get(ownProps.id) }),
-  { deleteArticle, loadArticle }
+  { deleteArticle, loadArticle },
+  null,
+  { pure: false }
 )(Article);

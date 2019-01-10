@@ -11,8 +11,8 @@ const enhancer = applyMiddleware(
   thunk,
   routerMiddleware(history),
   randomId,
-  api,
-  logger
+  api /*,
+  logger*/
 );
 
 const store = createStore(reducer, {}, enhancer);
