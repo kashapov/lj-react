@@ -7,19 +7,16 @@ import CommentsPage from "./routes/CommentsPage";
 import UserForm from "./UserForm";
 import Filters from "./Filters";
 import Counter from "./Counter";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  NavLink
-} from "react-router-dom";
+import { Switch, Route, NavLink } from "react-router-dom";
+import { ConnectedRouter } from "react-router-redux";
+import history from "../history";
 
 import "react-select/dist/react-select.css";
 
 class App extends Component {
   render() {
     return (
-      <Router>
+      <ConnectedRouter history={history}>
         <div>
           <h2>Main menu</h2>
           <nav>
@@ -63,7 +60,7 @@ class App extends Component {
             <Route path="*" component={NotFound} />
           </Switch>
         </div>
-      </Router>
+      </ConnectedRouter>
     );
   }
 }
