@@ -39,13 +39,22 @@ class App extends Component {
   render() {
     //console.log(0);
 
+    let divStyle = {
+      textDecoration: "underline",
+      cursor: "pointer"
+    };
+
     return (
       <ConnectedRouter history={history}>
         <LangProvider language={this.state.language}>
-          <ul>
-            <li onClick={this.changeLanguage("en")}>English</li>
-            <li onClick={this.changeLanguage("ru")}>Russian</li>
-          </ul>
+          <nav>
+            <b style={divStyle} onClick={this.changeLanguage("en")}>
+              EN
+            </b>{" "}
+            <b style={divStyle} onClick={this.changeLanguage("ru")}>
+              RU
+            </b>
+          </nav>
           <h2>Main menu</h2>
           <nav>
             <NavLink
