@@ -10,6 +10,7 @@ import Counter from "./Counter";
 import { Switch, Route, NavLink } from "react-router-dom";
 import { ConnectedRouter } from "react-router-redux";
 import history from "../history";
+import LangProvider from "./LangProvider";
 
 import "react-select/dist/react-select.css";
 
@@ -18,15 +19,18 @@ class App extends Component {
     user: PropTypes.string
   };
 
+  state = {
+    userName: "",
+    language: "ru"
+  };
+
+  changeLanguage = language => ev => this.setState({ language });
+
   getChildContext() {
     return {
       user: this.state.userName
     };
   }
-
-  state = {
-    userName: ""
-  };
 
   handleUserChange = userName => {
     this.setState({ userName });
@@ -37,7 +41,11 @@ class App extends Component {
 
     return (
       <ConnectedRouter history={history}>
-        <div>
+        <LangProvider language={this.state.language}>
+          <ul>
+            <li onClick={this.changeLanguage("en")}>English</li>
+            <li onClick={this.changeLanguage("ru")}>Russian</li>
+          </ul>
           <h2>Main menu</h2>
           <nav>
             <NavLink
@@ -82,7 +90,7 @@ class App extends Component {
             <Route path="/comments/:page" component={CommentsPage} />
             <Route path="*" component={NotFound} />
           </Switch>
-        </div>
+        </LangProvider>
       </ConnectedRouter>
     );
   }

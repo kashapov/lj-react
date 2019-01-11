@@ -6,6 +6,7 @@ import CommentList from "../CommentList";
 import { CSSTransitionGroup } from "react-transition-group";
 import { deleteArticle, loadArticle } from "../../AC";
 import Loader from "../Loader";
+import LocalizedText from "../LocalizedText";
 import "./style.css";
 
 class Article extends Component {
@@ -45,7 +46,9 @@ class Article extends Component {
       <div ref={this.setContainerRef}>
         <h3>{article.title}</h3>
         <button onClick={toggleOpen}>{isOpen ? "close" : "open"}</button>
-        <button onClick={this.handleDelete}>delete me</button>
+        <button onClick={this.handleDelete}>
+          <LocalizedText>delete me</LocalizedText>
+        </button>
         <CSSTransitionGroup
           transitionName="article"
           transitionAppear
@@ -63,7 +66,7 @@ class Article extends Component {
   handleDelete = () => {
     const { deleteArticle, article } = this.props;
     deleteArticle(article.id);
-    console.log("---", "deleting article");
+    //console.log("---", "deleting article");
   };
 
   setContainerRef = ref => {
@@ -78,13 +81,6 @@ class Article extends Component {
     return (
       <section>
         {article.text}
-        <button
-          onClick={() =>
-            this.setState({ updateIndex: this.state.updateIndex + 1 })
-          }
-        >
-          update
-        </button>
         <CommentList
           article={article}
           ref={this.setCommentsRef}

@@ -6,6 +6,7 @@ import toggleOpen from "../decorators/toggleOpen";
 import Loader from "./Loader";
 import { loadArticleComments } from "../AC";
 import { connect } from "react-redux";
+import LocalizedText from "./LocalizedText";
 
 class CommentList extends Component {
   static contextTypes = {
@@ -33,9 +34,12 @@ class CommentList extends Component {
 
     return (
       <div>
-        User: {this.context.user}
-        <br />
-        <button onClick={toggleOpen}>{text}</button>
+        <hr />
+        <b>User: {this.context.user}</b>
+        <hr />
+        <button onClick={toggleOpen}>
+          <LocalizedText>{text}</LocalizedText>
+        </button>
         {getBody({ article, isOpen })}
       </div>
     );
@@ -59,7 +63,9 @@ function getBody({
   if (!comments.length)
     return (
       <div>
-        <p>No comments yet</p>
+        <p>
+          <LocalizedText>No comments yet</LocalizedText>
+        </p>
         <CommentForm articleId={id} />
       </div>
     );
